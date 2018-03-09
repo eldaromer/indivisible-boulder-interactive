@@ -1,0 +1,10 @@
+{
+  "name": "indivisible-boulder-interactive",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Omer Eldar",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.5.0"
+  }
+}
