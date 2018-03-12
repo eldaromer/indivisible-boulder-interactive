@@ -3,4 +3,9 @@ html
     head
         title Add bills
     body
-        p #{name}
+        form(action='/submit' method='post')
+            each bill in bills
+                input(name=bill.bill_slug id=bill.number type='checkbox')
+                label(for=bill.number)= bill.number + ' ' + bill.title
+                br
+            input(type='submit' value='Submit')
