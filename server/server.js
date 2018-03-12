@@ -3,14 +3,31 @@ const Router = require('koa-router');
 const logger = require('koa-logger');
 const request = require('koa-http-request');
 const router = new Router();
+const Pug = require('koa-pug');
+
 
 const app = new Koa();
+
+const pug = new Pug({
+    viewPath: './server/views',
+    baseDir: './server/views',
+    app: app
+});
 
 app.use(request({
     json: true, //automatically parsing of JSON response
     timeout: 3000,    //3s timeout
     host: 'https://api.propublica.org'
 }));
+
+router.get('/index', async(ctx, next) => {
+
+    //const response = await ctx.get()
+
+    ctx.render('index', {
+        name: 'Test'
+    })
+});
 
 router.get('/bill/:slug', async(ctx, next) => {
     console.log(ctx.params.slug);
