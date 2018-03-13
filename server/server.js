@@ -86,6 +86,10 @@ router.post('/submit', async(ctx, next) => {
     ctx.redirect('/index');
 });
 
+router.all('*', async(ctx, next) => {
+    ctx.redirect('/index');
+});
+
 app.use(bodyParser());
 app.use(logger());
 app.use(router.routes());
