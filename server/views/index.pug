@@ -33,4 +33,6 @@ html
                                     p= 'Latest Major Action: ' + bill.latest_major_action
                                     p= 'Date: ' + bill.latest_major_action_date
                             hr
-                        input(type='submit' value='Submit' style='margin-bottom:30px;')
+                        input(type='password', class='form-control', id='password' placeholder='Password...', name='password')
+                        label(for='password')
+                        button(type='submit' class='btn btn-primary' style='margin-bottom:30px;margin-top:20px;') Submit

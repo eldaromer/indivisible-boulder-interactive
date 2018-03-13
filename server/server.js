@@ -6,7 +6,8 @@ const bodyParser = require('koa-bodyparser');
 const Bill = require('./models/index').Bill;
 const router = new Router();
 const Pug = require('koa-pug');
-const apiKey = 'NNmNjh1IsJT4QUZLwJYiKdBf7Kc0pEL00tjVAlRB';
+const apiKey = process.env.PROPUBLICA_KEY;
+const password = process.env.IBOULDER_PASS;
 
 const app = new Koa();
 
@@ -67,23 +68,38 @@ router.get('/bill/:slug', async(ctx, next) => {
 });
 
 router.post('/submit', async(ctx, next) => {
+
+    let auth = true;
+
     if (ctx.request.body) {
-        submissions = Object.keys(ctx.request.body);
-        for (let slug of submissions) {
-            const response = await ctx.get('/congress/v1/bills/search.json?query=' + slug, null, {
-                'X-API-Key': apiKey
-            });
+        if (ctx.request.body.password===password) {
+            submissions = Object.keys(ctx.request.body);
+            for (let slug of submissions) {
+                const response = await ctx.get('/congress/v1/bills/search.json?query=' + slug, null, {
+                    'X-API-Key': apiKey
+                });
 
-            const create = response.results[0].bills[0];
-            console.log(create);
+                const create = response.results[0].bills[0];
 
-            Bill.create({slug: create.bill_slug, title: create.number + ' ' + create.title}).then(bill => {
-                console.log(bill.get('slug'));
-            })
+                Bill.create({slug: create.bill_slug, title: create.number + ' ' + create.title}).then(bill => {
+                    console.log(bill.get('slug'));
+                })
+            }
+        } else {
+            auth=false;
         }
     }
 
     ctx.redirect('/index');
+
+    if (!auth) {
+        ctx.redirect('/unauthorized');
+    }
+
+});
+
+router.get('/unauthorized', async(ctx, next) => {
+    ctx.render('unauthorized');
 });
 
 router.get('*', async(ctx, next) => {
@@ -101,4 +117,4 @@ app.use(router.allowedMethods());
 
 app.listen(3000, () => {
     console.log('Running on port: ', 3000);
-});
+}).setTimeout(10000);
