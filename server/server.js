@@ -16,6 +16,14 @@ const pug = new Pug({
     app: app
 });
 
+app.use(async (ctx, next) => {
+    try {
+        await next();
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+
 app.use(request({
     json: true, //automatically parsing of JSON response
     timeout: 3000,    //3s timeout

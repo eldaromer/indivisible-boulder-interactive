@@ -2,10 +2,19 @@ doctype html
 html
     head
         title Add bills
+        link(href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' type='text/css')
+        script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')
     body
-        form(action='/submit' method='post')
-            each bill in bills
-                input(name=bill.bill_slug id=bill.number type='checkbox')
-                label(for=bill.number)= bill.number + ' ' + bill.title
-                br
-            input(type='submit' value='Submit')
+        div(class='container' style='margin-top:30px;')
+            div(class='row')
+                h1 Recent Bills:
+                hr
+                form(action='/submit' method='post')
+                    div(class='form-check')
+                        each bill in bills
+                            input(name=bill.bill_slug id=bill.number type='checkbox' class='form-check-input')
+                            label(for=bill.number class='form-check-label')= bill.number + ' ' + bill.title
+                            br
+                        input(type='submit' value='Submit')
