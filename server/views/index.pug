@@ -14,7 +14,23 @@ html
                 form(action='/submit' method='post')
                     div(class='form-check')
                         each bill in bills
-                            input(name=bill.bill_slug id=bill.number type='checkbox' class='form-check-input')
-                            label(for=bill.number class='form-check-label')= bill.number + ' ' + bill.title
-                            br
-                        input(type='submit' value='Submit')
+                            if bill.short_title
+                                - var title = bill.short_title
+                                if bill.summary
+                                    - var summary = bill.summary
+                                else
+                                    - var summary = bill.title
+                            else
+                                - var title = bill.title
+                                - var summary = bill.summary
+                            div(class=checkbox)
+                                input(name=bill.bill_slug id=bill.number type='checkbox' class='form-check-input')
+                                label(for=bill.number class='form-check-label')
+                                    p= 'Title: ' + bill.number + ' ' + title
+                                    p= 'Sponsor: ' + bill.sponsor_title + ' ' + bill.sponsor_name
+                                    p= 'Summary: ' + summary
+                                    p= 'Committee(s): ' + bill.committees
+                                    p= 'Latest Major Action: ' + bill.latest_major_action
+                                    p= 'Date: ' + bill.latest_major_action_date
+                            hr
+                        input(type='submit' value='Submit' style='margin-bottom:30px;')
