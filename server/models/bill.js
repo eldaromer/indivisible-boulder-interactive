@@ -7,6 +7,10 @@ module.exports = (sequelize, DataTypes) => {
       title: {
           type: DataTypes.TEXT,
           allowNull: false
+      },
+      check: {
+        type: DataTypes.BOOLEAN,
+          default: false
       }
   }, {});
 

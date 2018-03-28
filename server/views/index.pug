@@ -23,7 +23,7 @@ html
                             else
                                 - var title = bill.title
                                 - var summary = bill.summary
-                            div(class=checkbox)
+                            div(class='checkbox')
                                 input(name=bill.bill_slug id=bill.number type='checkbox' class='form-check-input')
                                 label(for=bill.number class='form-check-label')
                                     p= 'Title: ' + bill.number + ' ' + title
@@ -32,6 +32,10 @@ html
                                     p= 'Committee(s): ' + bill.committees
                                     p= 'Latest Major Action: ' + bill.latest_major_action
                                     p= 'Date: ' + bill.latest_major_action_date
+                            div(class='checkbox')
+                                input(name=bill.bill_slug + "_remove" id=bill.number + "_remove" type="checkbox" class="form-check-input")
+                                label(for=bill.number + "_remove" class="form-check-label")
+                                    p= 'Remove'
                             hr
                         input(type='password', class='form-control', id='password' placeholder='Password...', name='password')
                         label(for='password')

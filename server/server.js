@@ -3,6 +3,7 @@ const Router = require('koa-router');
 const logger = require('koa-logger');
 const request = require('koa-http-request');
 const bodyParser = require('koa-bodyparser');
+const koaRequest = require('koa2-request');
 const Bill = require('./models/index').Bill;
 const router = new Router();
 const Pug = require('koa-pug');
@@ -74,16 +75,28 @@ router.post('/submit', async(ctx, next) => {
     if (ctx.request.body) {
         if (ctx.request.body.password===password) {
             submissions = Object.keys(ctx.request.body);
-            for (let slug of submissions) {
-                const response = await ctx.get('/congress/v1/bills/search.json?query=' + slug, null, {
-                    'X-API-Key': apiKey
-                });
+            for (const [key, value] of Object.entries(ctx.request.body)) {
 
-                const create = response.results[0].bills[0];
+                if (key !== 'password') {
 
-                Bill.create({slug: create.bill_slug, title: create.number + ' ' + create.title}).then(bill => {
-                    console.log(bill.get('slug'));
-                })
+                    let check = true;
+                    let clean = key;
+
+                    if (key.endsWith('_remove')) {
+                        clean = key.replace('_remove', '');
+                        check = false;
+                    }
+
+                    const response = await ctx.get('/congress/v1/bills/search.json?query=' + clean, null, {
+                        'X-API-Key': apiKey
+                    });
+
+                    const create = response.results[0].bills[0];
+
+                    Bill.create({slug: create.bill_slug, title: create.number + ' ' + create.title, check: check}).then(bill => {
+                        console.log(bill.get('slug'));
+                    });
+                }
             }
         } else {
             auth=false;
@@ -98,13 +111,6 @@ router.post('/submit', async(ctx, next) => {
 
 });
 
-router.get('/unauthorized', async(ctx, next) => {
-    ctx.render('unauthorized');
-});
-
-router.get('*', async(ctx, next) => {
-    ctx.redirect('/index');
-});
 
 router.get('/', async(ctx, next) => {
     ctx.redirect('index');
