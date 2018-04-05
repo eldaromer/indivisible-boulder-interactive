@@ -34,26 +34,93 @@ app.use(request({
 
 router.get('/index', async(ctx, next) => {
 
-    const response = await ctx.get('/congress/v1/115/both/bills/introduced.json', null, {
+    let response = await ctx.get('/congress/v1/115/both/bills/introduced.json', null, {
         'X-API-Key': apiKey
     });
 
+    billList = response.results[0].bills;
+    let index = 0;
+    let offset = 0;
+
     let bills = [];
 
-    for (let bill of response.results[0].bills) {
+    while (bills.length < 20) {
+
+        if (index >= billList.length) {
+            index = 0;
+            offset+=20;
+            response = await ctx.get(`/congress/v1/115/both/bills/introduced.json?offset=${offset}`, null, {
+                'X-API-Key': apiKey
+            });
+            billList = response.results[0].bills;
+        }
 
         const check = await Bill.findOne({
-            where: {slug: bill.bill_slug}
+            where: {slug: billList[index].bill_slug}
         });
 
         if (!check) {
-            bills.push(bill);
+            bills.push(billList[index]);
         }
+
+        index++;
     }
 
     ctx.render('index', {
         name: 'Test',
-        bills: bills
+        bills: bills,
+        page: 0,
+        next: 1
+    })
+});
+
+router.get('/index/:page', async(ctx, next) =>{
+
+    const page = parseInt(ctx.params.page);
+
+    let response = await ctx.get('/congress/v1/115/both/bills/introduced.json', null, {
+        'X-API-Key': apiKey
+    });
+
+    billList = response.results[0].bills;
+    let index = 0;
+    let offset = 0;
+
+    let bills = [];
+
+    while (bills.length < 20 + page*20) {
+
+        if (index >= billList.length) {
+            index = 0;
+            offset+=20;
+            response = await ctx.get(`/congress/v1/115/both/bills/introduced.json?offset=${offset}`, null, {
+                'X-API-Key': apiKey
+            });
+            billList = response.results[0].bills;
+        }
+
+        const check = await Bill.findOne({
+            where: {slug: billList[index].bill_slug}
+        });
+
+        if (!check) {
+            bills.push(billList[index]);
+        }
+
+        index++;
+    }
+
+    bills = bills.slice(page*20, page*20+20);
+
+    const prev = page-1;
+    const nex = page+1;
+
+    ctx.render('index', {
+        name: 'Test',
+        bills: bills,
+        prev: prev,
+        page: page,
+        next: nex
     })
 });
 
