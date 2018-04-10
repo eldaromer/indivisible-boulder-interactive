@@ -143,7 +143,7 @@ router.get('/bills', async(ctx, next) => {
     });
 
     ctx.body = {
-        bills: bills;
+        bills: bills
 }
 });
 
@@ -158,7 +158,7 @@ router.get('/bills/:page', async(ctx, next) => {
     });
 
     ctx.body = {
-        bills: bills;
+        bills: bills
     }
 
 });
