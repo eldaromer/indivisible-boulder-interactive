@@ -135,6 +135,34 @@ router.get('/bill/:slug', async(ctx, next) => {
     };
 });
 
+router.get('/bills', async(ctx, next) => {
+    const bills = await Bill.findAll({
+        limit: 20,
+        offset: 0,
+        order: '"updatedAt" DESC'
+    });
+
+    ctx.body = {
+        bills: bills;
+}
+});
+
+router.get('/bills/:page', async(ctx, next) => {
+
+    const page = parseInt(ctx.params.page);
+
+    const bills = await Bill.findAll({
+        limit: 20,
+        offset: page*20,
+        order: '"updatedAt" DESC'
+    });
+
+    ctx.body = {
+        bills: bills;
+    }
+
+});
+
 router.post('/submit', async(ctx, next) => {
 
     let auth = true;
@@ -177,7 +205,6 @@ router.post('/submit', async(ctx, next) => {
     }
 
 });
-
 
 router.get('/', async(ctx, next) => {
     ctx.redirect('index');
