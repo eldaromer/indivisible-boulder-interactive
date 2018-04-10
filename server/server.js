@@ -139,7 +139,7 @@ router.get('/bills', async(ctx, next) => {
     const bills = await Bill.findAll({
         limit: 20,
         offset: 0,
-        order: '"updatedAt" DESC'
+        order: [['"updatedAt"', 'DESC']]
     });
 
     ctx.body = {
@@ -154,7 +154,7 @@ router.get('/bills/:page', async(ctx, next) => {
     const bills = await Bill.findAll({
         limit: 20,
         offset: page*20,
-        order: '"updatedAt" DESC'
+        order: [['"updatedAt"', 'DESC']]
     });
 
     ctx.body = {
