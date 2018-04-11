@@ -3,7 +3,7 @@ const Router = require('koa-router');
 const logger = require('koa-logger');
 const request = require('koa-http-request');
 const bodyParser = require('koa-bodyparser');
-const koaRequest = require('koa2-request');
+const cors = require('@koa/cors');
 const Bill = require('./models/index').Bill;
 const router = new Router();
 const Pug = require('koa-pug');
@@ -11,6 +11,8 @@ const apiKey = process.env.PROPUBLICA_KEY;
 const password = process.env.IBOULDER_PASS;
 
 const app = new Koa();
+
+app.use(cors());
 
 const pug = new Pug({
     viewPath: './server/views',
