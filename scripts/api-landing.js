@@ -25,16 +25,31 @@ $(document).ready(function () {
                 console.log(data.results[0].bills[0]);
                 bill = data.results[0].bills[0];
 
+                var summ = "";
+                var title = "";
+
+                if (bill.short_title) {
+                    title = bill.short_title;
+                    if (bill.summary) {
+                        summ = bill.summary;
+                    } else {
+                        summ = bill.title;
+                    }
+                } else {
+                    title = bill.title;
+                    summ = bill.summary;
+                }
+
                 var main = $('.Main-content');
                 document.title=bill.number + ': ' + bill.short_title + ' — IndivisibleBoulder';
                 main.append(`<article class='BlogItem hentry'>
-<h1 class='BlogItem-title'>` + bill.number + `: ` + bill.short_title +`</h1>
+<h1 class='BlogItem-title'>` + bill.number + `: ` + title +`</h1>
 <div class='sqs-layout sqs-grid-12 columns-12'>
 <div class='row sqs-row'><div class='col sqs-col-12 span-12'>
 <div class='sqs-block html-block sqs-block-html'>
 <div class='sqs-block-content'>
 
-<p><strong>Summary: </strong><span style='font-size:11pt'>` + (bill.summary?bill.summary:"Automatic summary unavailable") +`</span></p>
+<p><strong>Summary: </strong><span style='font-size:11pt'>` + summ +`</span></p>
 <p><strong>Introduced on: </strong><span style='font-size:11pt'>` + bill.introduced_date +`</span></p>
 <p><strong>Sponsor: </strong><span style='font-size:11pt'>` + bill.sponsor_title + ' ' + bill.sponsor_name + ', ' + bill.sponsor_state + ' ' + bill.sponsor_party +`</span></p>
 <p><strong>Status: </strong><span style='font-size:11pt'>` + (bill.active?"Active":"Not Active") +`</span></p>
