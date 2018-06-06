@@ -9,6 +9,15 @@ const router = new Router();
 const Pug = require('koa-pug');
 const apiKey = process.env.PROPUBLICA_KEY;
 const password = process.env.IBOULDER_PASS;
+const fs = require('fs');
+
+let recent;
+
+fs.readFile('server/recent.txt', 'utf8', function(err, data) {
+    if (err) return console.log(err);
+    console.log(data);
+    recent = data;
+});
 
 const app = new Koa();
 
@@ -90,7 +99,9 @@ router.get('/index/:page', async(ctx, next) =>{
 
     let bills = [];
 
-    while (bills.length < 20 + page*20) {
+    let end = false;
+
+    while (bills.length < 20 + page*20 && !end) {
 
         if (index >= billList.length) {
             index = 0;
@@ -107,6 +118,10 @@ router.get('/index/:page', async(ctx, next) =>{
 
         if (!check) {
             bills.push(billList[index]);
+        }
+
+        if (billList[index].bill_slug === recent) {
+            end = true;
         }
 
         index++;
@@ -196,7 +211,12 @@ router.post('/submit', async(ctx, next) => {
 
                     const create = response.results[0].bills[0];
 
-                    Bill.create({slug: create.bill_slug, title: create.number + ' ' + create.title, check: check}).then(bill => {
+                    let title = create.title;
+                    if (create.short_title !== "") {
+                        title = create.short_title;
+                    }
+
+                    Bill.create({slug: create.bill_slug, title: create.number + ' ' + title, check: check}).then(bill => {
                         console.log(bill.get('slug'));
                     });
                 }
