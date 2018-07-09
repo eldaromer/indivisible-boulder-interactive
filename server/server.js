@@ -1,4 +1,4 @@
-const Koa = require('koa');
+	const Koa = require('koa');
 const Router = require('koa-router');
 const logger = require('koa-logger');
 const request = require('koa-http-request');
@@ -144,7 +144,7 @@ router.get('/index/:page', async(ctx, next) =>{
 router.get('/bill/:slug', async(ctx, next) => {
 
     const response = await ctx.get('/congress/v1/bills/search.json?query='+ctx.params.slug, null, {
-        'X-API-Key': apiKey
+        'X-API-Key': X-API-Key
     });
 
     ctx.body = {
