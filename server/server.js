@@ -144,7 +144,7 @@ router.get('/index/:page', async(ctx, next) =>{
 router.get('/bill/:slug', async(ctx, next) => {
 
     const response = await ctx.get('/congress/v1/bills/search.json?query='+ctx.params.slug, null, {
-        'X-API-Key': X-API-Key
+        'X-API-Key': apiKey
     });
 
     ctx.body = {
