@@ -57,6 +57,9 @@ router.get('/index', async(ctx, next) => {
 
     while (bills.length < 20) {
 
+        if (index === 60)
+            break;
+
         if (index >= billList.length) {
             index = 0;
             offset+=20;
@@ -102,6 +105,9 @@ router.get('/index/:page', async(ctx, next) =>{
     let end = false;
 
     while (bills.length < 20 + page*20 && !end) {
+
+        if (index === 60)
+            break;
 
         if (index >= billList.length) {
             index = 0;

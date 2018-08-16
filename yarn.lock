@@ -581,7 +581,7 @@ kind-of@^3.0.2:
   dependencies:
     is-buffer "^1.1.5"
 
-koa-bodyparser@^4.2.0:
+koa-bodyparser@4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/koa-bodyparser/-/koa-bodyparser-4.2.0.tgz#bce6e08bc65f8709b6d1faa9411c7f0d8938aa54"
   dependencies:
@@ -605,7 +605,7 @@ koa-convert@^1.2.0:
     co "^4.6.0"
     koa-compose "^3.0.0"
 
-koa-http-request@^2.2.0:
+koa-http-request@2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/koa-http-request/-/koa-http-request-2.2.0.tgz#9533ff44931595df6d0c6186f773568bc20299d4"
   dependencies:
@@ -615,7 +615,7 @@ koa-is-json@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/koa-is-json/-/koa-is-json-1.0.0.tgz#273c07edcdcb8df6a2c1ab7d59ee76491451ec14"
 
-koa-logger@^3.1.0:
+koa-logger@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/koa-logger/-/koa-logger-3.1.0.tgz#81a353f41870119d56260e0e644f04e731810039"
   dependencies:
@@ -624,7 +624,7 @@ koa-logger@^3.1.0:
     humanize-number "0.0.2"
     passthrough-counter "^1.0.0"
 
-koa-pug@^3.0.0-2:
+koa-pug@3.0.0-2:
   version "3.0.0-2"
   resolved "https://registry.yarnpkg.com/koa-pug/-/koa-pug-3.0.0-2.tgz#97fa68d2796d693ec3de2bbeaecba7c69c895c80"
   dependencies:
@@ -637,7 +637,7 @@ koa-pug@^3.0.0-2:
     lodash.merge "^3.3.2"
     pug "^2.0.0-beta11"
 
-koa-router@^7.4.0:
+koa-router@7.4.0:
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/koa-router/-/koa-router-7.4.0.tgz#aee1f7adc02d5cb31d7d67465c9eacc825e8c5e0"
   dependencies:
@@ -648,13 +648,13 @@ koa-router@^7.4.0:
     path-to-regexp "^1.1.1"
     urijs "^1.19.0"
 
-koa2-request@^1.0.4:
+koa2-request@1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/koa2-request/-/koa2-request-1.0.4.tgz#8e41b99104d8b3bb353e04dc65375486ef76a103"
   dependencies:
     request "^2.83.0"
 
-koa@^2.5.0:
+koa@2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/koa/-/koa-2.5.0.tgz#b0fbe1e195e43b27588a04fd0be0ddaeca2c154c"
   dependencies:
@@ -939,7 +939,7 @@ pg-connection-string@0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/pg-connection-string/-/pg-connection-string-0.1.3.tgz#da1847b20940e42ee1492beaf65d49d91b245df7"
 
-pg-hstore@^2.3.2:
+pg-hstore@2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/pg-hstore/-/pg-hstore-2.3.2.tgz#f7ef053e7b9b892ae986af2f7cbe86432dfcf24f"
   dependencies:
@@ -958,7 +958,7 @@ pg-types@~1.12.1:
     postgres-date "~1.0.0"
     postgres-interval "^1.1.0"
 
-pg@^7.4.1:
+pg@7.4.1:
   version "7.4.1"
   resolved "https://registry.yarnpkg.com/pg/-/pg-7.4.1.tgz#f3411c8ddf9f692322fe05e7017a1888e47f78f1"
   dependencies:
@@ -1177,7 +1177,7 @@ semver@^5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
 
-sequelize@^4.35.5:
+sequelize@4.35.5:
   version "4.35.5"
   resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.35.5.tgz#a7739344edb754c95d2bbbf685bece981923da2f"
   dependencies:
