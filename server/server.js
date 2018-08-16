@@ -57,8 +57,10 @@ router.get('/index', async(ctx, next) => {
 
     while (bills.length < 20) {
 
-        if (index === 60)
+        if (index === 60) {
+            console.log("Broke");
             break;
+        }
 
         if (index >= billList.length) {
             index = 0;
@@ -106,8 +108,10 @@ router.get('/index/:page', async(ctx, next) =>{
 
     while (bills.length < 20 + page*20 && !end) {
 
-        if (index === 60)
+        if (index === 60) {
+            console.log("Broke");
             break;
+        }
 
         if (index >= billList.length) {
             index = 0;
